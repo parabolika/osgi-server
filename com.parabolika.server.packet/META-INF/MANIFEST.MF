@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: server.packet
+Bundle-SymbolicName: com.parabolika.server.packet
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: parabolika
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.parabolika.server.common,
+ com.parabolika.server.model,
+ org.osgi.service.event;version="1.2.0"
+Export-Package: com.parabolika.server.packet,
+ com.parabolika.server.packet.packets
+Service-Component: OSGI-INF/incoming_packet_parser_comp.xml

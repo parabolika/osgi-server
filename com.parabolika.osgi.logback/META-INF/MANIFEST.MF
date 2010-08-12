@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: logback
+Bundle-SymbolicName: com.parabolika.osgi.logback
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: parabolika
+Fragment-Host: ch.qos.logback.classic
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

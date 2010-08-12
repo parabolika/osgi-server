@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: server.net
+Bundle-SymbolicName: com.parabolika.server.net
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: parabolika
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.parabolika.server.common
+Export-Package: com.parabolika.server.net;uses:="org.osgi.framework",
+ com.parabolika.server.net.base,
+ net.burtleburtle.bob.rand
+Bundle-ClassPath: .

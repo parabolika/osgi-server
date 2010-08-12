@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: server.model
+Bundle-SymbolicName: com.parabolika.server.model
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: parabolika
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.parabolika.server.model

@@ -1,0 +1,10 @@
+com.parabolika.server.packet.translate.parse.ButtonClickPacketParser
+com.parabolika.server.packet.translate.parse.CameraMovePacketParser
+com.parabolika.server.packet.translate.parse.ChatPacketParser
+com.parabolika.server.packet.translate.parse.DummyPacketParser
+com.parabolika.server.packet.translate.parse.HandshakePacketParser
+com.parabolika.server.packet.translate.parse.IdleLogoutPacketParser
+com.parabolika.server.packet.translate.parse.LoginPacketParser
+com.parabolika.server.packet.translate.parse.ObjectActionPacketParser
+com.parabolika.server.packet.translate.parse.PingPacketParser
+com.parabolika.server.packet.translate.parse.WalkPacketParser

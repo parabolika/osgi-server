@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.parabolika.server.packet.impl.PacketEventToParserHandler">
+	<implementation class="com.parabolika.server.packet.impl.IncomingPacketParserHandler"/>
+	<service>
+		<provide interface="org.osgi.service.event.EventHandler"/>
+	</service>
+	<property name="event.topics" value="com/parabolika/server/net/PACKET_ARRIVE"/>
+	
+	<reference bind="setEventAdmin" interface="org.osgi.service.event.EventAdmin"/>
+	<reference bind="setPacketService" interface="com.parabolika.server.packet.IPacketService"/>
+</scr:component>

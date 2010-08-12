@@ -1,0 +1,11 @@
+com.parabolika.server.packet.translate.build.CameraResetPacketBuilder
+com.parabolika.server.packet.translate.build.HandshakeResponsePacketBuilder
+com.parabolika.server.packet.translate.build.LoginResponsePacketBuilder
+com.parabolika.server.packet.translate.build.LogoutPacketBuilder
+com.parabolika.server.packet.translate.build.MapRegionPacketBuilder
+com.parabolika.server.packet.translate.build.MessagePacketBuilder
+com.parabolika.server.packet.translate.build.PlayerDetailsPacketBuilder
+com.parabolika.server.packet.translate.build.PlayerUpdatePacketBuilder
+com.parabolika.server.packet.translate.build.SetInterfacePacketBuilder
+com.parabolika.server.packet.translate.build.SetSkillPacketBuilder
+com.parabolika.server.packet.translate.build.ShowInterfacePacketBuilder

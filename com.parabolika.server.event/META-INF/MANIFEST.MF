@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: server.event
+Bundle-SymbolicName: com.parabolika.server.event
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.parabolika.server.event.Activator
+Bundle-Vendor: parabolika
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.parabolika.server.common,
+ com.parabolika.server.model,
+ com.parabolika.server.net,
+ com.parabolika.server.packet.packets,
+ org.osgi.framework;version="1.5.0",
+ org.osgi.service.event;version="1.2.0",
+ org.osgi.util.tracker;version="1.4.0",
+ org.slf4j;version="1.4.3"
+Service-Component: OSGI-INF/server_tick_comp.xml, OSGI-INF/channel_open_comp.xml, OSGI-INF/channel_close_comp.xml, OSGI-INF/packet_arrive_comp.xml, OSGI-INF/packet_parse_comp.xml, OSGI-INF/game_event_mgr_comp.xml
