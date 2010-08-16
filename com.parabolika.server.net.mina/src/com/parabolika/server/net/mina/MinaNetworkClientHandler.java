@@ -14,16 +14,15 @@ import com.parabolika.server.common.GenericServiceTracker;
 public class MinaNetworkClientHandler extends IoHandlerAdapter {
 	private final MinaNetworkService networkService;
 	private final GenericServiceTracker<EventAdmin> eventAdminTracker;
-
-	private MinaNetworkClient client;
+	private final MinaNetworkClient client;
+	
 	private Map<String, Object> defaultEventData;
 
 	public MinaNetworkClientHandler(MinaNetworkService networkService,
 			GenericServiceTracker<EventAdmin> eventAdminTracker) {
 		this.networkService = networkService;
+		this.client = new MinaNetworkClient();
 		this.eventAdminTracker = eventAdminTracker;
-
-		client = new MinaNetworkClient();
 
 		defaultEventData = new HashMap<String, Object>();
 		defaultEventData.put("client", client);
