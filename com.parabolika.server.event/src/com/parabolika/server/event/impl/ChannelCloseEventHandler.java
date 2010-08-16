@@ -18,6 +18,6 @@ public class ChannelCloseEventHandler implements EventHandler {
 		logger.info("Connection closed with {}", client.getUUID());
 
 		Player player = World.getWorld().getPlayer(client.getUUID());
-		World.getWorld().getPlayers().remove(player);
+		World.getWorld().removePlayer(player);
 	}
 }

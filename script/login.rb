@@ -10,7 +10,7 @@ on :login do |params|
   client.write packet_service.build(Packets::LoginResponsePacket.new 2, 2, 0)
   player_details = Model::PlayerDetails.new(params['packet'].username, params['packet'].password, 3)
   player = Model::Player.new client.get_uuid, player_details, Model::World.get_world.get_next_available_index
-  Model::World.get_world.get_players.add player
+  Model::World.get_world.addPlayer player
 
   session_keys = params['packet'].sessionKeys
   client.set_incoming_cipher_keys session_keys
