@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Collects and stores information regarding the connected players.
+ */
 public class World {
 	private static final World WORLD = new World();
 
@@ -31,6 +34,11 @@ public class World {
 		players.remove(player);
 	}
 
+	/**
+	 * Determines the next player index available.  This is not always
+	 * sequential.  For instance, if there are 100 players, indices 0-99, and
+	 * player 50 leaves, the 49th index is now available.
+	 */
 	public int getNextAvailableIndex() {
 		for(int i = 0; i < players.size(); i++) {
 			if(players.get(i) == null) {

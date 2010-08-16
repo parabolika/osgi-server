@@ -5,6 +5,16 @@ import java.util.Hashtable;
 
 import org.osgi.service.event.Event;
 
+/**
+ * A utility class to make building OSGi <code>Event</code>s more concise.
+ * <p>
+ * Example:
+ * <pre>
+ * Event event = new EventBuilder("some/topic")
+ *         .withOption("someKey", "someValue")
+ *         .withOption("someKey2", "someValue2").build();
+ * </pre>
+ */
 public class EventBuilder {
 	private final String topic;
 	private final Dictionary<String, Object> options;

@@ -6,6 +6,11 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
+/**
+ * A generic implementation of OSGi's <code>ServiceTracker</code>.  Generics
+ * remove the need for casts each time the <code>getService</code> method is
+ * called.
+ */
 public class GenericServiceTracker<T> extends ServiceTracker {
 	public GenericServiceTracker(BundleContext context, Filter filter, ServiceTrackerCustomizer customizer) {
 		super(context, filter, customizer);

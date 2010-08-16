@@ -14,6 +14,8 @@ public class BaseProtocolDecoder {
 		if(buffer.limit() == 0) return null;
 
 		int packetId = buffer.get() & 0xFF;
+
+		// cipher will be null if the keys haven't yet been exchanged
 		if(cipher != null) {
 			packetId = packetId - cipher.nextInt() & 0xFF;
 		}

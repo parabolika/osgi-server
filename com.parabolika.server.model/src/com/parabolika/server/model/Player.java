@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.UUID;
 
-
 public class Player extends Entity {
 	private final List<LocalPlayerListEntry> localPlayers = new ArrayList<LocalPlayerListEntry>();
 	private final UpdateFlagSet updateFlags = new UpdateFlagSet();
