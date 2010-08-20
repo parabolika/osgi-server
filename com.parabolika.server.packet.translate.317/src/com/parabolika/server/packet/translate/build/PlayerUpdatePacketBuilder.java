@@ -42,7 +42,7 @@ public class PlayerUpdatePacketBuilder implements IPacketBuilder {
 		output.writeBits(8, playerCount);
 		for(LocalPlayerListEntry entry : player.getLocalPlayerEntries()) {
 			Player updatePlayer = entry.getPlayer();
-			if(entry.getStatus() == LocalPlayerStatus.STEADY) {
+			if(entry.getStatus() == LocalPlayerStatus.NO_CHANGE) {
 				updatePlayerMovement(output, updatePlayer);
 				if(updatePlayer.getUpdateFlags().isUpdateRequired()) {
 					updatePlayer(updateBlock, updatePlayer, PlayerStatus.CURRENT_PLAYER, false);

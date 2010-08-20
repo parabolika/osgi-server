@@ -6,10 +6,10 @@ package com.parabolika.server.model;
  * state on whether the player is just being added to or removed from the list
  * (<code>BEING_ADDED</code>, <code>BEING_REMOVED</code>), meaning extra
  * information will have to be sent in the update packet, or if no changes were
- * made (<code>STEADY</code>).
+ * made (<code>NO_CHANGE</code>).
  */
 public class LocalPlayerListEntry {
-	public enum LocalPlayerStatus { BEING_ADDED, STEADY, BEING_REMOVED };
+	public enum LocalPlayerStatus { BEING_ADDED, NO_CHANGE, BEING_REMOVED };
 
 	private final Player player;
 	private LocalPlayerStatus status;

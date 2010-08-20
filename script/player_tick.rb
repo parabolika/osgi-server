@@ -11,7 +11,7 @@ on :pre_player_tick do |c|
       !other_player.get_location.is_within_distance(c.player.get_location)
       other_player_entry.set_status Model::LocalPlayerListEntry::LocalPlayerStatus::BEING_REMOVED
     else
-      other_player_entry.set_status Model::LocalPlayerListEntry::LocalPlayerStatus::STEADY
+      other_player_entry.set_status Model::LocalPlayerListEntry::LocalPlayerStatus::NO_CHANGE
     end
   end
 
