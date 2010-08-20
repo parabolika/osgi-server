@@ -24,7 +24,7 @@ public class MinaNetworkService extends BaseNetworkService {
 		acceptor = new NioSocketAcceptor();
 
 		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(new MinaCodecFactory()));
-		acceptor.setHandler(new MinaNetworkClientHandler(this, eventAdminTracker));
+		acceptor.setHandler(new MinaMultiHandler(this, eventAdminTracker));
 
 		try {
 			acceptor.bind(new InetSocketAddress(43594));
