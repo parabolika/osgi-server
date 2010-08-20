@@ -27,10 +27,6 @@ public class NettyNetworkClient extends BaseNetworkClient {
 		encoder.setCipher(new ISAACAlgorithm(keys));
 	}
 
-	public Channel getChannel() {
-		return channel;
-	}
-
 	public void setChannel(Channel channel) {
 		this.channel = channel;
 	}
