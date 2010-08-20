@@ -5,7 +5,7 @@ on :pre_player_tick do |c|
 
   # Update the local player list
   other_players = c.player.get_local_player_entries
-  for other_player_entry in other_players
+  other_players.each do |other_player_entry|
     other_player = other_player_entry.get_player
     if !Model::World.get_world.get_players.contains(other_player) ||
       !other_player.get_location.is_within_distance(c.player.get_location)
@@ -15,20 +15,11 @@ on :pre_player_tick do |c|
     end
   end
 
-  for other_player in Model::World.get_world.get_players
+  Model::World.get_world.get_players.each do |other_player|
     next if c.player.equals other_player
-    next if c.player.get_local_player_entries.contains other_player
+    next if c.player.get_local_player_entries.map(&:get_player).include? other_player
 
-    # TODO: This is just wrong.
-    in_list = false
-    for list_player in c.player.get_local_player_entries
-      if list_player.get_player.equals other_player
-        in_list = true
-        break
-      end
-    end
-
-    if !in_list && other_player.get_location.is_within_distance(c.player.get_location)
+    if other_player.get_location.is_within_distance(c.player.get_location)
       c.player.get_local_player_entries.add Model::LocalPlayerListEntry.new(other_player, Model::LocalPlayerListEntry::LocalPlayerStatus::BEING_ADDED)
     end
   end
@@ -55,7 +46,7 @@ end
 on :post_player_tick do |c|
   player = c.player
 
-  for other_player_entry in player.get_local_player_entries
+  player.get_local_player_entries.clone.each do |other_player_entry|
     if other_player_entry.get_status == Model::LocalPlayerListEntry::LocalPlayerStatus::BEING_REMOVED
       player.get_local_player_entries.remove other_player_entry
     end
