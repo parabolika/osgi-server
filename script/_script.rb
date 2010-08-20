@@ -11,11 +11,11 @@ end
 @handlers = {}
 
 def on(event_name, &block)
-  @handlers[event_name] = block
+  (@handlers[event_name] ||= []) << block
 end
 
 def fire_event(event_name, params)
-  @handlers[event_name.to_sym].call(params) if @handlers[event_name.to_sym] != nil
+  (@handlers[event_name.to_sym] ||= []).each { |h| h.call(params) }
 end
 
 def load_handlers
