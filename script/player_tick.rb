@@ -1,14 +1,14 @@
 require '_script'
 
-on :pre_player_tick do |params|
-  params['player'].get_walking_queue.process_next_movement
+on :pre_player_tick do |c|
+  c.player.get_walking_queue.process_next_movement
 
   # Update the local player list
-  other_players = params['player'].get_local_player_entries
+  other_players = c.player.get_local_player_entries
   for other_player_entry in other_players
     other_player = other_player_entry.get_player
     if !Model::World.get_world.get_players.contains(other_player) ||
-      !other_player.get_location.is_within_distance(params['player'].get_location)
+      !other_player.get_location.is_within_distance(c.player.get_location)
       other_player_entry.set_status Model::LocalPlayerListEntry::LocalPlayerStatus::BEING_REMOVED
     else
       other_player_entry.set_status Model::LocalPlayerListEntry::LocalPlayerStatus::STEADY
@@ -16,53 +16,44 @@ on :pre_player_tick do |params|
   end
 
   for other_player in Model::World.get_world.get_players
-    next if params['player'].equals other_player
-    next if params['player'].get_local_player_entries.contains other_player
+    next if c.player.equals other_player
+    next if c.player.get_local_player_entries.contains other_player
 
     # TODO: This is just wrong.
     in_list = false
-    for list_player in params['player'].get_local_player_entries
+    for list_player in c.player.get_local_player_entries
       if list_player.get_player.equals other_player
         in_list = true
         break
       end
     end
 
-    if !in_list && other_player.get_location.is_within_distance(params['player'].get_location)
-      params['player'].get_local_player_entries.add Model::LocalPlayerListEntry.new(other_player, Model::LocalPlayerListEntry::LocalPlayerStatus::BEING_ADDED)
+    if !in_list && other_player.get_location.is_within_distance(c.player.get_location)
+      c.player.get_local_player_entries.add Model::LocalPlayerListEntry.new(other_player, Model::LocalPlayerListEntry::LocalPlayerStatus::BEING_ADDED)
     end
   end
 end
 
-on :player_tick do |params|
-  player = params['player']
+on :player_tick do |c|
+  player = c.player
 
   # Manage the walking queue
   if player.is_map_region_changing
-    region_packet = Packets::MapRegionPacket.new player.get_location.region_x, player.get_location.region_y
-    params['client'].write params['packet_service'].build(region_packet)
+    c.send_packet Packets::MapRegionPacket.new(player.get_location.region_x, player.get_location.region_y)
     player.set_last_known_region player.get_location
   end
 
   # Send an update packet every tick
-  update_packet = Packets::PlayerUpdatePacket.new player
-  params['client'].write params['packet_service'].build(update_packet)
+  c.send_packet Packets::PlayerUpdatePacket.new(player)
 
   # Manage and perform actions from the action queue
-  action_queue = params['player'].get_action_queue
-  if action = action_queue.peek
-    context = action.get_context
-    block = action.get_callable
-
-    if player.get_location.is_within_interaction_distance(context['object_loc'])
-      action_queue.poll
-      block.call
-    end
+  c.player.action_queue.each do |block|
+    c.player.action_queue.delete(block) if block.call
   end
 end
 
-on :post_player_tick do |params|
-  player = params['player']
+on :post_player_tick do |c|
+  player = c.player
 
   for other_player_entry in player.get_local_player_entries
     if other_player_entry.get_status == Model::LocalPlayerListEntry::LocalPlayerStatus::BEING_REMOVED

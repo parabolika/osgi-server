@@ -1,24 +1,30 @@
 require '_script'
 
-# TODO: Refactor this.
-on :object_action do |params|
-  packet = params['packet']
-  object_loc = Model::Location.create(packet.objectX, packet.objectY, params['player'].get_location.get_z)
-  params.put('object_loc', object_loc)
+Player = com.parabolika.server.model.Player
+class Player
+  def action_queue
+    (@action_queue ||= [])
+  end
+end
 
-  block = case packet.objectId
-  when 299
-    lambda do
-      params['client'].write params['packet_service'].build(Packets::MessagePacket.new "There's nothing in there!")
-    end
-  when 823
-    lambda do
-      params['client'].write params['packet_service'].build(Packets::MessagePacket.new "You fail to hit the dummy!")
-    end
-  when 2213
-    lambda do
-      params['client'].write params['packet_service'].build(Packets::MessagePacket.new "Cool, have some money.")
+# TODO: Refactor this.
+on :object_action do |c|
+  object_loc = Model::Location.create(c.packet.objectX, c.packet.objectY, c.player.get_location.get_z)
+
+  block = lambda do
+    if c.player.get_location.is_within_interaction_distance object_loc
+      case c.packet.objectId
+      when 299
+        c.send_message "There's nothing in there!"
+      when 823
+        c.send_message "You fail to hit the dummy!"
+      when 2213
+        c.send_message "Cool, have some money."
+      end
+      true
+    else
+      false
     end
   end
-  params['player'].get_action_queue.add Model::ActionFuture.new(params, block)
+  c.player.action_queue << block
 end

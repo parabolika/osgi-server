@@ -10,7 +10,6 @@ public class Player extends Entity {
 	private final List<LocalPlayerListEntry> localPlayers = new ArrayList<LocalPlayerListEntry>();
 	private final UpdateFlagSet updateFlags = new UpdateFlagSet();
 	private final Queue<ChatMessage> chatQueue = new LinkedList<ChatMessage>();
-	private final Queue<ActionFuture> actionQueue = new LinkedList<ActionFuture>();
 
 	private final UUID uuid;
 	private final PlayerDetails details;
@@ -32,10 +31,6 @@ public class Player extends Entity {
 
 	public Queue<ChatMessage> getChatQueue() {
 		return chatQueue;
-	}
-
-	public Queue<ActionFuture> getActionQueue() {
-		return actionQueue;
 	}
 
 	public PlayerDetails getDetails() {
