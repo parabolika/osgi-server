@@ -1,14 +1,17 @@
 require 'java'
 
-module Packets
-  include_package 'com.parabolika.server.packet.packets'
-end
+modules = {
+  'Packets' => 'com.parabolika.server.packet.packets',
+  'Model' => 'com.parabolika.server.model',
+}
 
-module Model
-  include_package 'com.parabolika.server.model'
+modules.each do |k, v|
+  eval <<-RUBY
+    module #{k}
+      include_package '#{v}'
+    end
+  RUBY
 end
-
-@handlers = {}
 
 class Context
   attr_reader :player, :client, :packet, :packet_service
@@ -18,13 +21,15 @@ class Context
   end
 end
 
+@handlers = {}
+
 def on(event_name, &block)
   (@handlers[event_name] ||= []) << block
 end
 
 def fire_event(event_name, params)
   context = Context.new *(params.values)
-  (@handlers[event_name.to_sym] ||= []).each { |h| h.call(context) }
+  (@handlers[event_name.to_sym] || []).each { |h| h.call(context) }
 end
 
 def load_handlers
