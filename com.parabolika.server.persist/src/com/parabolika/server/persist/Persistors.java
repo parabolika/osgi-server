@@ -10,20 +10,20 @@ import com.parabolika.server.persist.annotate.Persists;
 
 public class Persistors {
 	private static final Logger logger = LoggerFactory.getLogger(Persistors.class);
-	private static final Map<Class<?>, IPersistor<?>> PERSISTORS =
-		new HashMap<Class<?>, IPersistor<?>>();
+	private static final Map<Class<?>, IPersistor<?, ?, ?>> PERSISTORS =
+		new HashMap<Class<?>, IPersistor<?, ?, ?>>();
 
-	public static Map<Class<?>, IPersistor<?>> getPersistors() {
+	public static Map<Class<?>, IPersistor<?, ?, ?>> get() {
 		return PERSISTORS;
 	}
 
-	public static IPersistor<?> getPersistor(Class<?> klass) {
+	public static IPersistor<?, ?, ?> get(Class<?> klass) {
 		return PERSISTORS.get(klass);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void addPersistor(IPersistor<?> persistor) {
-		Class<IPersistor<?>> klass = (Class<IPersistor<?>>) persistor.getClass();
+	public static void add(IPersistor<?, ?, ?> persistor) {
+		Class<IPersistor<?, ?, ?>> klass = (Class<IPersistor<?, ?, ?>>) persistor.getClass();
 		if(klass.isAnnotationPresent(Persists.class)) {
 			Class<?> persistable = klass.getAnnotation(Persists.class).value();
 			PERSISTORS.put(persistable, persistor);

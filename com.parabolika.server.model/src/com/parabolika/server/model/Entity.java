@@ -2,15 +2,15 @@ package com.parabolika.server.model;
 
 // XXX: Rewrite this
 public class Entity {
-	private final WalkingQueue walkingQueue = new WalkingQueue(this);
-	private final Sprites sprites = new Sprites();
+	private final transient WalkingQueue walkingQueue = new WalkingQueue(this);
+	private final transient Sprites sprites = new Sprites();
 
 	private Location location = Location.create(3268, 3420, 0);
-	private Location lastKnownRegion = location;
+	private transient Location lastKnownRegion = location;
 
-	private boolean mapRegionChanging = false;
-	private boolean teleporting = false;
-	private Location teleportTarget = null;
+	private transient boolean mapRegionChanging = false;
+	private transient boolean teleporting = false;
+	private transient Location teleportTarget = null;
 
 	public WalkingQueue getWalkingQueue() {
 		return walkingQueue;

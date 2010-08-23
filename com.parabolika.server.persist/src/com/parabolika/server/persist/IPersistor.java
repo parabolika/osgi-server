@@ -1,8 +1,6 @@
 package com.parabolika.server.persist;
 
-import java.util.UUID;
-
-public interface IPersistor<T> {
-	public void put(T t);
-	public T get(UUID uuid, String key);
+public interface IPersistor<A, T, K> {
+	public void put(A a);
+	public T get(K builder, String key);
 }

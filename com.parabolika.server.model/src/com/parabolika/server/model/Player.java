@@ -7,18 +7,24 @@ import java.util.Queue;
 import java.util.UUID;
 
 public class Player extends Entity {
-	private final List<LocalPlayerListEntry> localPlayers = new ArrayList<LocalPlayerListEntry>();
-	private final UpdateFlagSet updateFlags = new UpdateFlagSet();
-	private final Queue<ChatMessage> chatQueue = new LinkedList<ChatMessage>();
+	private final transient List<LocalPlayerListEntry> localPlayers = new ArrayList<LocalPlayerListEntry>();
+	private final transient UpdateFlagSet updateFlags = new UpdateFlagSet();
+	private final transient Queue<ChatMessage> chatQueue = new LinkedList<ChatMessage>();
 
-	private final UUID uuid;
-	private final PlayerDetails details;
-	private final int index;
+	private transient UUID uuid;
+	private transient int index;
 
-	public Player(UUID uuid, PlayerDetails details, int index) {
+	private final String username;
+	private final String password;
+	private final int rights;
+
+	public Player(UUID uuid, int index, String username, String password, int rights, Location location) {
 		this.uuid = uuid;
-		this.details = details;
 		this.index = index;
+		this.username = username;
+		this.password = password;
+		this.rights = rights;
+		super.setLocation(location);
 	}
 
 	public UpdateFlagSet getUpdateFlags() {
@@ -33,15 +39,23 @@ public class Player extends Entity {
 		return chatQueue;
 	}
 
-	public PlayerDetails getDetails() {
-		return details;
+	public UUID getUUID() {
+		return uuid;
 	}
 
 	public int getIndex() {
 		return index;
 	}
 
-	public UUID getUUID() {
-		return uuid;
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public int getRights() {
+		return rights;
 	}
 }

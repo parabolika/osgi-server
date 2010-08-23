@@ -3,6 +3,7 @@ require 'java'
 modules = {
   'Packets' => 'com.parabolika.server.packet.packets',
   'Model' => 'com.parabolika.server.model',
+  'Persist' => 'com.parabolika.server.persist',
 }
 
 modules.each do |k, v|

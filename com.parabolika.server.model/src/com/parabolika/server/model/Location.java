@@ -33,6 +33,10 @@ public class Location {
 		return new Location(x, y, z);
 	}
 
+	private Location() {
+		this(-1, -1, -1);
+	}
+
 	/**
 	 * Creates a location.
 	 * @param x The x coordinate.

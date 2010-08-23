@@ -5,9 +5,16 @@ SIDEBARS = { 1 => 3917, 2 => 638, 3 => 3213, 4 => 1644, 5 => 5608, 6 => 1151,
 
 on :login do |c|
   c.send_packet Packets::LoginResponsePacket.new 2, 2, 0
-  player_details = Model::PlayerDetails.new c.packet.username, c.packet.password, 3
-  player = Model::Player.new c.client.get_uuid, player_details, Model::World.get_world.get_next_available_index
-  Model::World.get_world.addPlayer player
+
+  persistor = Persist::Persistors.get(Model::PlayerBuilder.java_class)
+  builder = Model::PlayerBuilder.new.
+        with_uuid(c.client.get_uuid).
+        with_index(Model::World.get_world.get_next_available_index).
+        with_details(c.packet.username, c.packet.password, 0)
+  builder = persistor.get(builder, c.packet.username)
+  player = builder.build
+
+  Model::World.get_world.add_player player
 
   session_keys = c.packet.sessionKeys
   c.client.set_incoming_cipher_keys session_keys

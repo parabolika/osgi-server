@@ -199,7 +199,7 @@ public class PlayerUpdatePacketBuilder implements IPacketBuilder {
 		props.writeShort(0x336); // turn 90 ccw
 		props.writeShort(0x338); // run
 
-		props.writeLong(TranslationHelpers.nameToLong(player.getDetails().getName())); // name
+		props.writeLong(TranslationHelpers.nameToLong(player.getUsername()));
 		props.write(100); // combat level
 		props.writeShort(0); // skill level instead of combat level
 
@@ -209,7 +209,7 @@ public class PlayerUpdatePacketBuilder implements IPacketBuilder {
 
 	private void appendChatMessageUpdate(RSOutputStream output, Player player, ChatMessage chat) {
 		output.writeLEShort((chat.getColor() & 0xFF) << 8 | chat.getEffects() & 0xFF);
-		output.write(player.getDetails().getRights());
+		output.write(player.getRights());
 
 		byte[] packed = new byte[chat.getMessage().length()];
 		TranslationHelpers.textPack(packed, chat.getMessage());

@@ -16,7 +16,7 @@ public class Activator implements BundleActivator {
 		DB db = mongo.getDB("runescape");
 
 		mongoContext = new MongoContext(mongo, db);
-		Persistors.addPersistor(new MongoPlayerPersistor(mongoContext));
+		Persistors.add(new MongoPlayerPersistor(mongoContext));
 	}
 
 	@Override
