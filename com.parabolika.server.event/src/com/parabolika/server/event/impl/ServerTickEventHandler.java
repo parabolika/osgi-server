@@ -33,7 +33,6 @@ public class ServerTickEventHandler implements EventHandler {
 		for(INetworkClient client : networkService.getClients()) {
 			// Can be null if the client is not completely logged in yet
 			if(World.getWorld().getPlayer(client.getUUID()) != null) {
-				// XXX: Send or post this event (to avoid concurrency issues)?
 				gameEventManager.sendEvent(name, client, new _DummyPacket());
 			}
 		}
