@@ -7,7 +7,6 @@ class Player
   end
 end
 
-# TODO: Refactor this.
 on :object_action do |c|
   object_loc = Model::Location.create(c.packet.objectX, c.packet.objectY, c.player.get_location.get_z)
 
